@@ -39,6 +39,7 @@ int main()
     return -1;
   else
     pHead1->m_Value = rand()%10;
+    pHead1->p_Next  = NULL;
   pHead1 = CreateLinkList(pHead1,LINKNODEFIRST);
   PrintLinkList(pHead1);
 
@@ -47,6 +48,7 @@ int main()
     return -1;
   else
     pHead2->m_Value = rand()%10;
+    pHead2->p_Next  = NULL;
   pHead2 = CreateLinkList(pHead2,LINKNODESECOND);
   PrintLinkList(pHead2);
 }
