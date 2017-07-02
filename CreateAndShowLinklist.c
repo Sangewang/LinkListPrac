@@ -138,6 +138,23 @@ LinkNode * ReverseLinkList(LinkNode * pHead)
   return pReverseHead;
 }
 
+void FindLastLinkListKValue(LinkNode *pHead,int k)
+{
+    LinkNode *p1 = pHead;
+    LinkNode *p2 = pHead;
+    int i,j=0;
+    for(i=0;i<k-1;i++)
+    {
+      p1 = p1->p_Next;
+    }
+    while(NULL!=p1->p_Next)
+    {
+      p1 = p1->p_Next;
+      p2 = p2->p_Next;
+    }
+    printf("\n The Last %d value int the LinkList is %d",k,p2->m_Value);
+}
+
 int main()
 {
   LinkNode *pHead1 =  (LinkNode*)malloc(sizeof(LinkNode));
@@ -159,6 +176,9 @@ int main()
   pHead2 = CreateLinkList(pHead2,LINKNODESECOND-1);
   printf("\n pHead2 :");
   PrintLinkList(pHead2);
+  
+  FindLastLinkListKValue(pHead1,5);
+  FindLastLinkListKValue(pHead2,4);
 
   printf("\n Reverse LinkNode 1 :");
   LinkNode * pReverseHead1 = ReverseLinkList(pHead1);
