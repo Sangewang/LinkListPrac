@@ -32,6 +32,22 @@ void PrintLinkList(LinkNode *pHead)
   printf("\n");
 }
 
+void Destroy(LinkNode ** pHead)
+{
+  if(NULL == pHead || NULL == *pHead)
+  {
+    return;
+  }
+  LinkNode *pNext = NULL;;
+  while(NULL!=*pHead)
+  {
+    pNext = (*pHead)->p_Next;
+    free(*pHead);
+    *pHead = pNext;
+  }
+  return;
+}
+
 int main()
 {
   LinkNode *pHead1 =  (LinkNode*)malloc(sizeof(LinkNode));
@@ -42,6 +58,7 @@ int main()
     pHead1->p_Next  = NULL;
   pHead1 = CreateLinkList(pHead1,LINKNODEFIRST);
   PrintLinkList(pHead1);
+  Destroy(&pHead1);
 
   LinkNode *pHead2 = (LinkNode*)malloc(sizeof(LinkNode));
   if(pHead2==NULL)
@@ -51,4 +68,5 @@ int main()
     pHead2->p_Next  = NULL;
   pHead2 = CreateLinkList(pHead2,LINKNODESECOND);
   PrintLinkList(pHead2);
+  Destroy(&pHead2);
 }
