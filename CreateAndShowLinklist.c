@@ -62,7 +62,6 @@ LinkNode * AddSumLinkList(LinkNode *pHead1,LinkNode *pHead2)
     LinkNode *pTemp   = (LinkNode *)malloc(sizeof(LinkNode));
     const int value1  = (p1==NULL?0:p1->m_Value);
     const int value2  = (p2==NULL?0:p2->m_Value);
-    printf("value1 = %d , value2 = %d\n",value1,value2);
     pTemp->m_Value    = (value1 + value2 + flag)%10;
     flag              = (value1 + value2 + flag)/10;
     pFind->p_Next     = pTemp;
@@ -117,6 +116,28 @@ void LinkListBubbleSort(LinkNode *pHead,int len)
    }
 }
 
+LinkNode * ReverseLinkList(LinkNode * pHead)
+{
+  if(NULL == pHead)
+  {
+    return NULL;
+  }
+  LinkNode * pPrev = NULL;
+  LinkNode * pReverseHead = NULL;
+  while (NULL != pHead)
+  {
+    LinkNode *pNext = pHead->p_Next;
+    if(NULL == pNext)
+    {
+      pReverseHead = pHead;
+    }
+    pHead->p_Next = pPrev;
+    pPrev = pHead;
+    pHead = pNext;
+  }
+  return pReverseHead;
+}
+
 int main()
 {
   LinkNode *pHead1 =  (LinkNode*)malloc(sizeof(LinkNode));
@@ -126,6 +147,7 @@ int main()
     pHead1->m_Value = (rand()+2)%10;
     pHead1->p_Next  = NULL;
   pHead1 = CreateLinkList(pHead1,LINKNODEFIRST-1);
+  printf("\n pHead1 :");
   PrintLinkList(pHead1);
 
   LinkNode *pHead2 = (LinkNode*)malloc(sizeof(LinkNode));
@@ -135,21 +157,36 @@ int main()
     pHead2->m_Value = (rand()+2)%10;
     pHead2->p_Next  = NULL;
   pHead2 = CreateLinkList(pHead2,LINKNODESECOND-1);
+  printf("\n pHead2 :");
   PrintLinkList(pHead2);
+
+  printf("\n Reverse LinkNode 1 :");
+  LinkNode * pReverseHead1 = ReverseLinkList(pHead1);
+  PrintLinkList(pReverseHead1);
+  printf("\n Reverse LinkNode 2 :");
+  LinkNode * pReverseHead2 = ReverseLinkList(pHead2);
+  PrintLinkList(pReverseHead2);
   
+  pHead1 = pReverseHead1;
+  pHead2 = pReverseHead2;
+
   LinkNode * pSumHead   = AddSumLinkList(pHead1,pHead2);
+  printf("\n Add pHead1 And pHead2 Sum:");
   PrintLinkList(pSumHead);
 
   LinkListBubbleSort(pHead1,LINKNODEFIRST);
   LinkListBubbleSort(pHead2,LINKNODESECOND);
+  printf("\n pHead1 After LinkListBubbleSort :");
   PrintLinkList(pHead1);
+  printf("\n pHead2 After LinkListBubbleSort :");
   PrintLinkList(pHead2);
 
   LinkNode * pMergeHead = MergeLinkList(pHead1,pHead2);
+  printf("\n pHead1 Merge pHead2 :");
   PrintLinkList(pMergeHead);
 
   Destroy(&pHead1);
   Destroy(&pHead2);
- // Destroy(&pSumHead);
+  Destroy(&pSumHead);
 }
 
